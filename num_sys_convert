@@ -4,7 +4,7 @@ class Solution:
         funtion: convert a decimal number to any system type
         
         parameter:
-            num:the number to be converted
+            num:the decimal number to be converted
             
             Type: the system type you want to convert to 
                 (example:Type='16' means you want to convert it to hex number)
@@ -71,7 +71,7 @@ class Solution:
         funtion: convert a any system type number to another system type
         
         parameter:
-            num:the number to be converted
+            num:the decimal number to be converted
             
             Type1: the system type of the given number 
                 (example:Type='16' means parameter 'num' is a hex number)
