@@ -1,0 +1,102 @@
+class Solution:
+    def Dto(self, num:str,Type:str,digit:str=None): 
+        """
+        funtion: convert a decimal number to any system type
+        
+        parameter:
+            num:the number to be converted
+            
+            Type: the system type you want to convert to 
+                (example:Type='16' means you want to convert it to hex number)
+                
+            digit: the digit of the result
+                if the input number is negative and want to take complement code,input the digit 
+            
+        return:
+            the needed number within string type
+        """
+        element_list = "0123456789abcdef"     
+        ans = []
+        num=int(num)
+        sys=int(Type)
+        if digit:
+            digit=int(digit)
+            for _ in range(digit):
+                ans.append(num%sys)
+                num //= sys
+                if not num:
+                    break
+            return "".join(element_list[n] for n in ans[::-1])
+        else:
+            if num>0:
+                while num!=0:
+                    ans.append(num%sys)
+                    num //= sys
+                return "".join(element_list[n] for n in ans[::-1])
+            else:
+               num=num*-1
+               while num!=0:
+                   ans.append(num%sys)
+                   num //= sys
+               return "-"+"".join(element_list[n] for n in ans[::-1])
+
+    def toD(self, num:str,Type:str):
+        """
+        funtion: convert a any system type number to decimal
+        
+        parameter:
+            num:the number to be converted
+            
+            Type: the system type of the given number 
+                (example:Type='16' means parameter 'num' is a hex number)
+            
+        return:
+            the needed decimal number within string type
+        """
+        element_list = "0123456789abcdef"
+        ans =0
+        sys=int(Type)
+        if num[0] != '-':
+            for i in range(len(num)):
+                ans+=(sys**(len(num)-i-1))*element_list.index(num[i])
+            return str(ans)
+        else:
+            num=num[1:]
+            for i in range(len(num)):
+                ans+=(sys**(len(num)-i-1))*element_list.index(num[i])
+            return str(-ans)
+
+    def AtoB(self, num:str,Type1:str,Type2:str):
+        """
+        funtion: convert a any system type number to another system type
+        
+        parameter:
+            num:the number to be converted
+            
+            Type1: the system type of the given number 
+                (example:Type='16' means parameter 'num' is a hex number)
+                
+            Type: the system type you want to convert to 
+                (example:Type='2' means you want to convert it to binary number)    
+            
+        return:
+            the needed number within string type
+        """
+        D=self.toD(num,Type1)
+        return self.Dto(D,Type2)
+    
+'''
+demo:
+    
+solve=Solution()
+RESULT1=solve.Dto('-100','2','8')
+RESULT1>>'10011100'
+RESULT2=solve.toD('-57d','16')
+RESULT2>>'-1405'
+RESULT3=solve.AtoB('1011011001','2','16')
+RESULT3>>'2d9'
+RESULT4=solve.AtoB('937','11','14')
+RESULT4>>'5a9'
+RESULT5=solve.Dto('-112','16')
+RESULT5>>'-70'
+'''
